@@ -1,0 +1,3 @@
+replicaCount: 4
+environment: prod
+demo: false
