@@ -21,9 +21,19 @@ This is the sample repository for the post [Deploying Helm Charts with Armory Sp
 The `Makefile` exposes a few options that can be overridden. To override them, create a file called `.env` with the following contents:
 
 ```
-export CHART_BUCKET=my-chart-bucket
-export DOCKER_REPO=dockerhubusername/spin-helm-demo
-export SPINNAKER_API=https://mycoolspinnaker.spinnaker.io
+CHART_BUCKET ?= spin-charts
+SPINNAKER_URL ?= https://spin.spin/webhooks/webhook/spin-helm-repo
+
+DOCKER_HOST ?= eu.gcr.io
+DOCKER_PROJECT_ID ?= project-id
+DOCKER_IMAGE ?= spin-helm-repo
 ```
 
 Then, run `source .env` to make them all environment variables. `make` will override the default values with these variables.
+
+Also be aware you'll need to update the image section of the charts values file to match the artifacts name in spinnaker;
+```
+image:
+  name: spin-helm-demo
+  pullPolicy: IfNotPresent
+```
